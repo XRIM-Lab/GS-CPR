@@ -1,0 +1,356 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="GS-CPR">
+  <meta name="author" content="Changkun Liu and Shuai Chen and Yash Bhalgat and Siyan Hu and Ming Cheng and Zirui Wang and Victor Adrian Prisacariu and Tristan Braud">
+  <meta name="generator" content="Jekyll v4.1.1">
+  <meta charset="UTF-8">
+    <title>GS-CPR</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- <meta name="google-site-verification" content="JBKlcsa_OIsJMSW_b9Tv4dXqKDXLYXfAEntWJ8nXCc4" /> -->
+
+  <title>GS-CPR: Efficient Camera Pose Refinement via 3D Gaussian Splatting (ICLR 2025)</title>
+  
+  <!-- Bootstrap core CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" 
+    crossorigin="anonymous">
+
+  <!-- Custom styles for this template -->
+  <link href="style.css" rel="stylesheet">
+
+  <style>
+body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+  img { 
+    width: 100%; 
+  }
+  .paper-title {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+  .authors-list .name {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+  .authors-list .affiliation {
+    font-size: 0.8em;
+  }
+  .image-button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 1px;
+      box-sizing: border-box;
+    }
+    .side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    #left {
+    width: calc(40% * 3034 / (3034));
+    }
+    #right {
+    width: calc(40% * 3946 / (3034));
+    }
+    .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* 设置一个固定的高度，或者根据需要调整 */
+    }
+    .image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+    }
+    #right .image-container img {
+  height: 85%;
+  width: auto;}
+
+  .button-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 1px;
+    }
+    .button-container button {
+      width: auto;
+      padding: 5px 10px;
+      margin: 0 5px;
+    }
+    @media (max-width: 767px) {
+      .side {
+        width: 100%;
+      }
+      #left {
+    width: calc(40% * 3034 / (3034));
+    }
+    #right {
+    width: calc(60% * 3946 / (3034));
+    }
+      .image-container {
+        height: 80px;
+      }
+    }
+  </style>
+</head>
+
+<body style="width: 100%; max-width: 1024px; margin-right: auto; margin-left: auto;">
+  <main role="main" class="container">
+    <div class="paper-title">
+    <!-- title -->
+    <div class="row">
+      <div class="col">
+        <p class="long-name text-center">
+          <h4 class="name text-center"> GS-CPR: Efficient Camera Pose Refinement via 3D Gaussian Splatting </h4>
+        </p>
+        <p class="name text-center" style="color:grey; font-size: 24px;">
+          ICLR 2025
+        </p>
+      </div>
+    </div>
+  </main>
+  
+
+  <br>
+
+<!-- Authors -->
+<div class="authors-list">
+    <div class="row">
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://lck666666.github.io/" target="_blank">Changkun Liu<sup>1</sup></a>
+        </p>
+      </div>
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://scholar.google.com/citations?user=c0xTh_YAAAAJ&hl=en" target="_blank">Shuai Chen<sup>2</sup></a>
+        </p>
+      </div>
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://scholar.google.com/citations?user=q0VSEHYAAAAJ&hl=en" target="_blank">Yash Bhalgat<sup>2</sup></a>
+        </p>
+      </div>
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://scholar.google.com/citations?user=S56rLU4AAAAJ&hl=en" target="_blank">Siyan Hu<sup>1</sup></a>
+        </p>
+      </div>
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://mingcheng991129.github.io/" target="_blank">Ming Cheng<sup>3</sup></a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en" target="_blank">Zirui Wang<sup>2</sup></a>
+        </p>
+      </div>
+      <div class="col">
+        <p class="name text-center">
+          <a href="http://www.robots.ox.ac.uk/~victor/" target="_blank">Victor&nbsp;A.&nbsp;Prisacariu<sup>2</sup></a>
+        </p>
+      </div>
+      <div class="col">
+        <p class="name text-center">
+          <a href="https://braudt.people.ust.hk/" target="_blank">Tristan Braud<sup>1</sup></a>
+        </p>
+      </div>
+    </div>
+</div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <p class="affiliation text-center">
+          <sup>1</sup>HKUST
+        </p>
+      </div>
+      <div class="col">
+        <p class="affiliation text-center">
+          <sup>2</sup>University of Oxford
+        </p>
+      </div>
+      <div class="col">
+        <p class="affiliation text-center">
+          <sup>3</sup>Dartmouth College
+        </p>
+      </div>
+    </div>
+  </div>
+  <br>  
+  
+  <div class="col text-center">
+    <a class="btn btn-outline-primary" href="https://arxiv.org/abs/2408.11085" role="button">Paper</a>
+    <a class="btn btn-outline-primary" href="" role="button">Code (Coming soon)</a>
+  </div>
+  <br>
+
+  <br>
+  <div class="row">
+    <div class="col">
+      <hr class="hr"/>
+      <p style="color: red;">
+        Note: During the ICLR review process, we changed the name of our framework from GSLoc to 
+        <a href="https://openreview.net/forum?id=mP7uV59iJM" style="color: red; text-decoration: underline;">GS-CPR</a> 
+        according to the comments of reviewers in the camera-ready version. The code will be released by March, 2025!
+      </p>      
+      <br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+     
+      <img src="static/Method.jpg" alt="method" class="centered-media">
+      The overview of \( \text{GS-CPR} \). Our proposed method, \( \text{GS-CPR} \), is a test-time camera pose refinement framework. We assume availability of a pre-trained pose estimator and a 3DGS model of the scene. For a query image, we first obtain an initial estimated pose from the pose estimator. Our goal is to output a refined 6DoF camera pose. 
+      <img src="static/Method_rel.jpg" alt="method" class="centered-media">
+      <p>The overview of \( \text{GS-CPR}_{\text{rel}} \) (a faster alternative with relative post estimation). The difference with GS-CPR is highlighted in the red box.</p>
+      <br>
+
+      <h3>Abstract</h3>
+      <hr class="hr"/>
+      <p class="text-justify">
+        We leverage 3D Gaussian Splatting (3DGS) as a scene representation and propose a novel test-time camera pose refinement (CPR) framework, GS-CPR. This framework enhances the localization accuracy of state-of-the-art absolute pose regression and scene coordinate regression methods. The 3DGS model renders high-quality synthetic images and depth maps to facilitate the establishment of 2D-3D correspondences. GS-CPR obviates the need for training feature extractors or descriptors by operating directly on RGB images, utilizing the 3D foundation model, MASt3R, for precise 2D matching. To improve the robustness of our model in challenging outdoor environments, we incorporate an exposure-adaptive module within the 3DGS framework. Consequently, GS-CPR enables efficient one-shot pose refinement given a single RGB query and a coarse initial pose estimation. Our proposed approach surpasses leading NeRF-based optimization methods in both accuracy and runtime across indoor and outdoor visual localization benchmarks, achieving new state-of-the-art accuracy on two indoor datasets.
+      </p>
+      <br>
+    </div>
+  </div>
+
+  <h3>Pose Refinement</h3>
+  </br>
+  <p class="text-justify"></p>
+  Each subfigure is divided by a diagonal line, with the bottom left part rendered using the estimated pose and the top right part displaying the
+    ground truth (GT) image. Patches highlighting visual differences are emphasized with green insets for enhanced visibility.
+  </p>
+  <div class="image-button-container">
+    <!-- 左侧区域 -->
+    <div class="side" id="left">
+        <h4>Indoor</h4>
+        <div class="image-container">
+            <img id="leftImage1" src="static/marepo_7scenes3.png" style="display:block;">
+            <img id="leftImage2" src="static/marepo_7scenes.png" style="display:none;">
+            <img id="leftImage3" src="static/marepo_7scenes2.png" style="display:none;">
+            <img id="leftImage4" src="static/marepo_12scenes.png" style="display:none;">
+            <img id="leftImage5" src="static/ACE_7scenes.png" style="display:none;">
+            <img id="leftImage6" src="static/ACE_7scenes2.png" style="display:none;">
+            <img id="leftImage7" src="static/ACE_12scenes.png" style="display:none;">
+            <img id="leftImage8" src="static/ACE_12scenes2.png" style="display:none;">
+        </div>
+        <div class="button-container">
+            <button onclick="prevImage('left')">Previous</button>
+            <button onclick="nextImage('left')">Next</button>
+        </div>
+    </div>
+    <!-- 右侧区域 -->
+    <div class="side" id="right">
+        <h4>Outdoor</h4>
+        <div class="image-container">
+            <img id="rightImage1" src="static/ACE_cambridge3.png" style="display:block;">
+            <img id="rightImage2" src="static/ACE_cambridge2.png" style="display:none;">
+            <img id="rightImage3" src="static/ACE_cambridge.png" style="display:none;">
+            <img id="rightImage4" src="static/ACE_cambridge4.png" style="display:none;">
+            <img id="rightImage5" src="static/DFNet_Cambridge.png" style="display:none;">
+            <img id="rightImage5" src="static/DFNet_Cambridge2.png" style="display:none;">
+            <img id="rightImage5" src="static/DFNet_Cambridge3.png" style="display:none;">
+        </div>
+        <div class="button-container">
+            <button onclick="prevImage('right')">Previous</button>
+            <button onclick="nextImage('right')">Next</button>
+        </div>
+    </div>
+</div>
+
+  <script>
+    function switchImage(images, currentIndex, nextIndex) {
+      images[currentIndex].style.display = 'none';
+      images[nextIndex].style.display = 'block';
+    }
+
+    function prevImage(side) {
+      const images = document.querySelectorAll(`#${side} .image-container img`);
+      const currentIndex = [...images].findIndex(img => img.style.display === 'block');
+      const nextIndex = (currentIndex - 1 + images.length) % images.length;
+      switchImage(images, currentIndex, nextIndex);
+    }
+
+    function nextImage(side) {
+      const images = document.querySelectorAll(`#${side} .image-container img`);
+      const currentIndex = [...images].findIndex(img => img.style.display === 'block');
+      const nextIndex = (currentIndex + 1) % images.length;
+      switchImage(images, currentIndex, nextIndex);
+    }
+  </script>
+  <div class="row">
+    <div class="col">
+    <hr class="hr"/>
+      <div class="embed-responsive embed-responsive-16by9">
+      <video id="video2" width="70%" autoplay loop muted playsinline>
+          <source src="static/video_refine_an.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+    <hr class="hr"/>
+      <div class="embed-responsive embed-responsive-16by9">
+      <video id="video2" width="70%" autoplay loop muted playsinline>
+          <source src="static/video_refine_rel.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+    <hr class="hr"/>
+      <div class="embed-responsive embed-responsive-16by9">
+      <video id="video2" width="70%" autoplay loop muted playsinline>
+          <source src="static/sup_video_new.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <div class="row">
+    <div class="col">
+      <h4>BibTeX</h4>
+      <hr class="hr"/>
+      <pre><code class="codebox" id="bibtex">
+        @article{liu2024gsloc,
+          title={Gsloc: Efficient camera pose refinement via 3d gaussian splatting},
+          author={Liu, Changkun and Chen, Shuai and Bhalgat, Yash and Hu, Siyan and Cheng, Ming and Wang, Zirui and Prisacariu, Victor Adrian and Braud, Tristan},
+          journal={arXiv preprint arXiv:2408.11085},
+          year={2024}
+        }
+      </code></pre>
+      <button class="btn btn-outline-secondary" onclick="copyToClipboard('#bibtex')">Copy bibtex</button>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
