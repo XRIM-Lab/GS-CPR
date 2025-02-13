@@ -209,7 +209,7 @@ body, html {
       <p style="color: red;">
         Note: During the ICLR review process, we changed the name of our framework from GSLoc to 
         <a href="https://openreview.net/forum?id=mP7uV59iJM" style="color: red; text-decoration: underline;">GS-CPR</a> 
-        according to the comments of reviewers in the camera-ready version. The code will be released by March, 2025!
+        according to the comments of reviewers in the camera-ready version.
       </p>      
       <br>
     </div>
@@ -220,8 +220,6 @@ body, html {
      
       <img src="static/Method.jpg" alt="method" class="centered-media">
       The overview of \( \text{GS-CPR} \). Our proposed method, \( \text{GS-CPR} \), is a test-time camera pose refinement framework. We assume availability of a pre-trained pose estimator and a 3DGS model of the scene. For a query image, we first obtain an initial estimated pose from the pose estimator. Our goal is to output a refined 6DoF camera pose. 
-      <img src="static/Method_rel.jpg" alt="method" class="centered-media">
-      <p>The overview of \( \text{GS-CPR}_{\text{rel}} \) (a faster alternative with relative post estimation). The difference with GS-CPR is highlighted in the red box.</p>
       <br>
 
       <h3>Abstract</h3>
@@ -295,6 +293,19 @@ body, html {
       switchImage(images, currentIndex, nextIndex);
     }
   </script>
+
+  <div class="row">
+    <div class="col">
+    <hr class="hr"/>
+      <div class="embed-responsive embed-responsive-16by9">
+      <video id="video2" width="70%" autoplay loop muted playsinline>
+          <source src="static/sup_video_new.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      </div>
+    </div>
+  </div>
+  
   <div class="row">
     <div class="col">
     <hr class="hr"/>
@@ -319,20 +330,6 @@ body, html {
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-    <hr class="hr"/>
-      <div class="embed-responsive embed-responsive-16by9">
-      <video id="video2" width="70%" autoplay loop muted playsinline>
-          <source src="static/sup_video_new.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-      </video>
-      </div>
-    </div>
-  </div>
-
-
-  <br>
   <div class="row">
     <div class="col">
       <h4>BibTeX</h4>
