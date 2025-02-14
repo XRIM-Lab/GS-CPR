@@ -335,18 +335,30 @@ body, html {
       <h4>BibTeX</h4>
       <hr class="hr"/>
       <pre><code class="codebox" id="bibtex">
-        @inproceedings{
-          liu2025gscpr,
-          title={{GS}-{CPR}: Efficient Camera Pose Refinement via 3D Gaussian Splatting},
-          author={Changkun Liu and Shuai Chen and Yash Sanjay Bhalgat and Siyan HU and Ming Cheng and Zirui Wang and Victor Adrian Prisacariu and Tristan Braud},
-          booktitle={The Thirteenth International Conference on Learning Representations},
-          year={2025},
-          url={https://openreview.net/forum?id=mP7uV59iJM}
-          }
+@inproceedings{
+  liu2025gscpr,
+  title={{GS}-{CPR}: Efficient Camera Pose Refinement via 3D Gaussian Splatting},
+  author={Changkun Liu and Shuai Chen and Yash Sanjay Bhalgat and Siyan HU and Ming Cheng and Zirui Wang and Victor Adrian Prisacariu and Tristan Braud},
+  booktitle={The Thirteenth International Conference on Learning Representations},
+  year={2025},
+  url={https://openreview.net/forum?id=mP7uV59iJM}
+}
       </code></pre>
-      <button class="btn btn-outline-secondary" onclick="copyToClipboard('#bibtex')">Copy bibtex</button>
+      <button class="btn btn-outline-secondary" onclick="copyToClipboard()">Copy bibtex</button>
     </div>
   </div>
+
+<script>
+function copyToClipboard() {
+  // Get the text content from the code element
+  const bibtex = document.getElementById('bibtex').textContent;
+  
+  // Use modern Clipboard API
+  navigator.clipboard.writeText(bibtex.trim())
+    .then(() => alert('BibTeX copied to clipboard!'))
+    .catch(err => console.error('Failed to copy:', err));
+}
+</script>
 
 </main>
 </body>
