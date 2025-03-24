@@ -10,7 +10,7 @@ and [Tristan BRAUD](https://scholar.google.com/citations?user=ZOZtoQUAAAAJ&hl=en
 
 **International Conference on Learning Representations (ICLR) 2025**
 
-**[Project Page](https://xrim-lab.github.io/GS-CPR/) | [Paper](https://openreview.net/forum?id=mP7uV59iJM)**
+**[Project Page](https://xrim-lab.github.io/GS-CPR/) | [Paper](https://openreview.net/forum?id=mP7uV59iJM) | [Video](https://youtu.be/9xhcpLLu7Kg)**
 
 [![GS-CPR](framework_imgs/Method.jpg)](https://openreview.net/forum?id=mP7uV59iJM)
 [![GS-CPR_rel](framework_imgs/Method_rel.jpg)](https://openreview.net/forum?id=mP7uV59iJM)
