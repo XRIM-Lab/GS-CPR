@@ -182,7 +182,7 @@ url={https://openreview.net/forum?id=mP7uV59iJM}
 }
 ```
 ## Star History
-If you find our work helpful, please consider star this repo:
+If you find our work helpful, please consider star🌟 this repo:
 [![Star History Chart](https://api.star-history.com/svg?repos=XRIM-Lab/GS-CPR&type=Timeline)](https://www.star-history.com/#XRIM-Lab/GS-CPR&Timeline)
 
 ## Acknowledgements
