@@ -181,6 +181,9 @@ year={2025},
 url={https://openreview.net/forum?id=mP7uV59iJM}
 }
 ```
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=XRIM-Lab/GS-CPR&type=Timeline)](https://www.star-history.com/#XRIM-Lab/GS-CPR&Timeline)
 
 ## Acknowledgements
 This project is developed based on several fantastic repos: [Scaffold-GS](https://github.com/city-super/Scaffold-GS), [MASt3R](https://github.com/naver/mast3r), [DUSt3R](https://github.com/naver/dust3r), [NeFeS](https://github.com/ActiveVisionLab/NeFeS), [ACE](https://github.com/nianticlabs/ace) and [Depth for 3DGS](https://github.com/leo-frank/diff-gaussian-rasterization-depth). We thank the original authors for their excellent work.
