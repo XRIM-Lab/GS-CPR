@@ -117,7 +117,7 @@ if __name__ == '__main__':
                     depth_map = np.load(gs_depth_path+image.replace('png','npy').replace('-frame','/frame'))
                 except:
                     depth_map = np.load(gs_depth_path+image.replace('png','npy'))
-                depth_map_mast3r = scene.get_depthmaps()[0].cpu().numpy()
+                depth_map_mast3r = output["pred1"]["pts3d"][0, ..., 2].cpu().numpy()
                 depth_map_resized = cv2.resize(depth_map, (512, 384), interpolation=cv2.INTER_LINEAR)
                 scale_factor = getScale(depth_map_mast3r,depth_map_resized)
                 predict_w2c_ini = predict_pose_w2c_dict[image]
